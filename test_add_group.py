@@ -17,20 +17,14 @@ class test_add_group(unittest.TestCase):
     
     def test_add_group(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_groups_page(wd)
         self.create_group(wd, Group(name="Group2", header="Test Group2", footer="Test Group2"))
-        self.return_to_groups(wd)
         self.logout(wd)
 
     def test_add_empty_group(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_groups_page(wd)
         self.create_group(wd, Group(name="", header="", footer=""))
-        self.return_to_groups(wd)
         self.logout(wd)
 
     def logout(self, wd):
@@ -43,6 +37,7 @@ class test_add_group(unittest.TestCase):
 
     def create_group(self, wd, group):
         # initialisation of new group (sozdanie novoi gryppi)
+        self.open_groups_page(wd)
         wd.find_element_by_name("new").click()
         # fill group form
         wd.find_element_by_name("group_name").click()
@@ -56,6 +51,7 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group creation
         wd.find_element_by_name("submit").click()
+        self.return_to_groups(wd)
 
     def open_groups_page(self, wd):
         # open groups page
@@ -63,6 +59,7 @@ class test_add_group(unittest.TestCase):
 
     def login(self, wd, username, password):
         # login
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
