@@ -1,9 +1,7 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
-
-
-
+from fixture.contact import ContactHelper
 
 class Application:
      def __init__(self):
@@ -11,11 +9,12 @@ class Application:
         self.wd.implicitly_wait(60)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
+        self.contact = ContactHelper(self)
 
      def open_home_page(self):
         # open home page
         wd = self.wd # ссылка на вебдрайвер
-        wd.get("http://localhost/addressbook/?group=Group1")
+        wd.get("http://localhost/addressbook/")
 
      def destroy(self):
         self.wd.quit()
