@@ -28,3 +28,12 @@ class ContactHelper:
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobilephone)
         wd.find_element_by_name("submit").click()
+
+    def dellete_first_contact(self):
+        wd = self.app.wd # ссылка на вебдрайвер
+        # select first group
+        wd.find_element_by_name("selected[]").click()
+        # confirm deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        
